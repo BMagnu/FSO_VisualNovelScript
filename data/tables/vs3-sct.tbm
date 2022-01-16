@@ -2671,7 +2671,6 @@ function VS3:SendMsg(t)
 		local titleFont = textinfo.Title.Color
 		AXMessage.Color.Title = {titleFont[1],titleFont[2],titleFont[3],255}
 	end
-	
 
 	if mn.Ships[self.Speaking]:isValid() then
 		self.Speaking = self.Speaking .. "  " --This is a dumb hack, but the game has an issue with the speaker matching a real ship
@@ -2948,7 +2947,7 @@ function VS3:Draw()
 					end		
 				end
 			end
-				
+			
 			if AXMessage.Enabled and AXMessage.DrawControl == "VS3" and self.ShowBox then
 				AXMessage:UpdateString()
 				if not self.HideFlag then
@@ -3521,7 +3520,6 @@ $On State End:
 
 $On Message Received:
 [
-
 	if VS3.Enabled and AXMessage.DrawControl == "VS3" then
 		AXMessage:SetupMessage(hv.SenderString, hv.Name, hv.Message)
 	end
