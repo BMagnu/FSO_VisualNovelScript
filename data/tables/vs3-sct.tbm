@@ -581,6 +581,36 @@ function VS3:ReturnFromInterrupt()
 
 end
 
+-- This function essentially duplicates the "fadeout" action
+function VS3:SetFadeout(r, g, b, t)
+	r = r or 0
+	g = g or 0
+	b = b or 0
+	t = (t or 2000) / 1000
+
+	if r < 0 or r > 255 or g < 0 or g > 255 or b < 0 or b > 255 then
+		ba.warning("RGB values must be from 0 to 255!")
+		return
+	end
+	if t < 0 then
+		ba.warning("Fade out time must be positive!")
+		return
+	end
+
+	self.Fade = {}
+	self.Fade.Color = {r,g,b}
+	self.Fade.A1 = 0
+	self.Fade.A2 = 255
+	self.Fade.StartTime = ba.getFrametimeOverall()
+	self.Fade.EndTime = ba.getFrametimeOverall() + 9999 --wat is this
+	self.Fade.Duration = t
+	VS3:Wait(t, true)
+	ba.print("VN: Fadeout set!\n")
+end
+mn.LuaSEXPs["lua-vn-fade-out"].Action = function(r, g, b, t)
+	VS3:SetFadeout(r, g, b, t)
+end
+
 function VS3:Action(t)
 
 	--t[1] = token
