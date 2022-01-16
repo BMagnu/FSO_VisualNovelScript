@@ -675,22 +675,14 @@ function VS3:Action(t)
 		if Lockdown then
 			Lockdown()
 			if t[3] and string.lower(t[3])=="everything" then
-				if Freeze then
-					Freeze()
-				else
-					ba.warning("Freeze() requires sexplibrary-sct.tbm!")
-				end
+				Freeze()
 			end
 			VS3:Wait(0,true)
 		end
 	elseif action == "unlockdown" then
 		if UnLockdown then
 			UnLockdown()
-			if UnFreeze then
-				UnFreeze()
-			else
-				ba.warning("UnFreeze() requires sexplibrary-sct.tbm!")
-			end
+			UnFreeze()
 			VS3:Wait(0,true)
 		end
 	elseif action == "endmission" then
