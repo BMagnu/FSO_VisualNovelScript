@@ -6,6 +6,31 @@ $On Game Init:
 
 VS3 = {}
 
+-- use better random functions than the Lua-supplied C ones
+;;FSO 20.1.0.20200727;; VS3.rand32 = ba.rand32
+;;FSO 20.1.0.20200727;; !*
+VS3.rand32 = function(a, b)
+	if a and b then
+		return math.random(a, b)
+	elseif a then
+		return math.random(a) - 1
+	else
+		return math.random(0, 0x7fffffff)
+	end
+end
+;;FSO 20.1.0.20200727;; *!
+
+;;FSO 21.5.0.20211107;;	VS3.rand32f = ba.rand32f
+;;FSO 21.5.0.20211107;; !*
+VS3.rand32f = function(max)
+	local result = math.random()
+	if max then
+		result = result * max
+	end
+	return result
+end
+;;FSO 21.5.0.20211107;; *!
+
 function VS3:Init(hideCursor)
 	--THIS IS VERSION 3.0.3
 	
@@ -2368,7 +2393,7 @@ function VS3:EvalArithmetic(t)
 		--Found a §
 		local a = VS3:EvalArithmetic({unpack(t, 1, tokenN - 1)})
 		local b = VS3:EvalArithmetic({unpack(t, tokenN + 1, evalMax)})
-		return math.random(a, b)
+		return VS3.rand32(a, b)
 	end
 
 	
